@@ -1,6 +1,8 @@
 #ifndef ABSTRACTFRACTAL_H
 #define ABSTRACTFRACTAL_H
 
+#include <QPainter>
+
 class AbstractFractal
 {
 public:
@@ -16,8 +18,8 @@ public:
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
 
-    void setWidth(int width) { m_width = width; }
-    void setHeight(int height) { m_height = height; }
+    virtual void setWidth(int width) { m_width = width; }
+    virtual void setHeight(int height) { m_height = height; }
 
     void setDimensions(int ix, int iy, int width, int height) {
         m_ix = ix;

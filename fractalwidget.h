@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "sierpinskifractal.h"
+#include "mandelbrotfractal.h"
 
 class FractalWidget : public QWidget
 {

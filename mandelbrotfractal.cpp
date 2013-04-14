@@ -6,19 +6,20 @@ MandelbrotFractal::MandelbrotFractal(double minReal, double maxReal, double minI
     : AbstractFractal(ix, iy, width, height),
       m_minReal(minReal), m_maxReal(maxReal),
       m_minImag(minImag), m_maxImag(maxImag),
+      m_zMinReal(minReal), m_zMaxReal(maxReal),
+      m_zMinImag(minImag), m_zMaxImag(maxImag),
       m_iter(iter) {
     m_realFactor = (m_maxReal-m_minReal)/(getWidth()-1);
     m_imagFactor = (m_maxImag-m_minImag)/(getHeight()-1);
 }
 
 void MandelbrotFractal::drawMe(QPainter *painter) {
-//    painter->setBrush(Qt::black);
     QColor color = Qt::white;
 
     for (int y = 0; y < getHeight(); y++) {
-        double c_imag = m_maxImag - (y*m_imagFactor);
+        double c_imag = m_zMaxImag - (y*m_imagFactor);
         for (int x = 0; x < getWidth(); x++) {
-            double c_real = m_minReal + (x*m_realFactor);
+            double c_real = m_zMinReal + (x*m_realFactor);
             double z_imag = c_imag;
             double z_real = c_real;
 
@@ -38,16 +39,15 @@ void MandelbrotFractal::drawMe(QPainter *painter) {
                 painter->setPen(Qt::black);
                 painter->drawPoint(x, y);
             } else {
-
-
-                if (k < (m_iter/2)-1) {
-                    double red = ((double)k/(double)m_iter)*255.0;
-                    color.setRgb(red, 0, 0);
+                double halfIter = (double)m_iter/2.0;
+                if (k < (m_iter/2)) {
+                    double cFactor = (k/halfIter)*255.0;
+                    color.setRgb(cFactor, 0, 0);
                     painter->setPen(color);
                     painter->drawPoint(x,y);
                 } else {
-                    double red = 255-(((double)k/(double)m_iter)*255.0);
-                    color.setRgb(red, 0, 0);
+                    double cFactor = ((k-halfIter)/halfIter)*255.0;
+                    color.setRgb(255, cFactor, cFactor);
                     painter->setPen(color);
                     painter->drawPoint(x,y);
                 }
@@ -59,37 +59,66 @@ void MandelbrotFractal::drawMe(QPainter *painter) {
 void MandelbrotFractal::setMinReal(double minReal)
 {
     m_minReal = minReal;
-    m_realFactor = (m_maxReal-m_minReal)/(getWidth()-1);
+    m_zMinReal = ((getZoomRect().x()/(double)getWidth())*(m_zMaxReal-m_zMinReal))+m_zMinReal;
+    m_realFactor = (m_zMaxReal-m_zMinReal)/(getWidth()-1);
 }
 
 void MandelbrotFractal::setMaxReal(double maxReal)
 {
     m_maxReal = maxReal;
-    m_realFactor = (m_maxReal-m_minReal)/(getWidth()-1);
+    m_zMaxReal = (((getZoomRect().x()+getZoomRect().width())/(double)getWidth()) *
+                  (m_zMaxReal-m_zMinReal))+m_zMinReal;
+    m_realFactor = (m_zMaxReal-m_zMinReal)/(getWidth()-1);
 }
 
 void MandelbrotFractal::setMinImag(double minImag)
 {
     m_minImag = minImag;
-    m_imagFactor = (m_maxImag-m_minImag)/(getHeight()-1);
+    m_zMinImag = m_zMaxImag - ((getZoomRect().y()+getZoomRect().height())/(double)getHeight()*
+                              (m_zMaxImag-m_zMinImag));
+    m_imagFactor = (m_zMaxImag-m_zMinImag)/(getHeight()-1);
 }
 
 void MandelbrotFractal::setMaxImag(double maxImag)
 {
     m_maxImag = maxImag;
+    m_zMaxImag = m_zMaxImag - ((getZoomRect().y()/(double)getHeight())*(m_zMaxImag-m_zMinImag));
     m_imagFactor = (m_maxImag-m_minImag)/(getHeight()-1);
 }
 
 
 void MandelbrotFractal::setHeight(int height)
 {
+    int origHeight = getHeight();
+    QRect zoom = getZoomRect();
+    zoom.setHeight(zoom.height()*(height/origHeight));
+    AbstractFractal::setZoomRect(zoom);
     AbstractFractal::setHeight(height);
-    m_imagFactor = (m_maxImag-m_minImag)/(getHeight()-1);
+    m_imagFactor = (m_zMaxImag-m_zMinImag)/(getHeight()-1);
 }
-
 
 void MandelbrotFractal::setWidth(int width)
 {
+    int origWidth = getWidth();
+    QRect zoom = getZoomRect();
+    zoom.setWidth(zoom.width()*(width/origWidth));
+    AbstractFractal::setZoomRect(zoom);
     AbstractFractal::setWidth(width);
-    m_realFactor = (m_maxReal-m_minReal)/(getWidth()-1);
+    m_realFactor = (m_zMaxReal-m_zMinReal)/(getWidth()-1);
 }
+
+void MandelbrotFractal::setZoomRect(QRect rect)
+{
+    AbstractFractal::setZoomRect(rect);
+    m_zMinReal = ((rect.x()/(double)getWidth())*(m_zMaxReal-m_zMinReal))+m_zMinReal;
+    m_zMaxReal = (((rect.x()+rect.width())/(double)getWidth()) *
+                  (m_zMaxReal-m_zMinReal))+m_zMinReal;
+    m_zMaxImag = m_zMaxImag - ((rect.y()/(double)getHeight())*(m_zMaxImag-m_zMinImag));
+    m_zMinImag = m_zMaxImag - ((rect.y()+rect.height())/(double)getHeight()*
+                              (m_zMaxImag-m_zMinImag));
+    m_imagFactor = (m_zMaxImag-m_zMinImag)/(getHeight()-1);
+    m_realFactor = (m_zMaxReal-m_zMinReal)/(getWidth()-1);
+
+//    m_iter *= ((double)getHeight()/rect.height());
+}
+

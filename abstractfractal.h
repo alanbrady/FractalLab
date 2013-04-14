@@ -2,12 +2,15 @@
 #define ABSTRACTFRACTAL_H
 
 #include <QPainter>
+#include <QRect>
 
 class AbstractFractal
 {
 public:
     AbstractFractal(int ix, int iy, int width, int height)
-        : m_ix(ix), m_iy(iy), m_width(width), m_height(height) {}
+        : m_ix(ix), m_iy(iy), m_width(width), m_height(height) {
+        zoomRect = QRect(0, 0, width, height);
+    }
 
     virtual ~AbstractFractal() {}
 
@@ -17,6 +20,9 @@ public:
     int getIY() const { return m_iy; }
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
+
+    const QRect& getZoomRect() { return zoomRect; }
+    virtual void setZoomRect(QRect rect) { zoomRect = rect; }
 
     virtual void setWidth(int width) { m_width = width; }
     virtual void setHeight(int height) { m_height = height; }
@@ -33,6 +39,7 @@ private:
     int m_iy;
     int m_width;
     int m_height;
+    QRect zoomRect;
 
 };
 

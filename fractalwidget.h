@@ -2,6 +2,7 @@
 #define FRACTALWIDGET_H
 
 #include <QWidget>
+#include <QPixmap>
 #include "sierpinskifractal.h"
 #include "mandelbrotfractal.h"
 
@@ -17,7 +18,14 @@ public slots:
 
 private:
     void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent * event);
+    void mouseReleaseEvent(QMouseEvent * event);
+    void resizeEvent(QResizeEvent *event);
+    void redrawFractal();
+
     AbstractFractal* fractal;
+    QPoint mouseDown;
+    QPixmap m_fractalMap;
     
 };
 

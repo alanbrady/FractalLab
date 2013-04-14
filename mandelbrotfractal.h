@@ -17,6 +17,7 @@ public:
     void setMaxImag(double maxImag);
     void setWidth(int width);
     void setHeight(int height);
+    void setZoomRect(QRect rect);
     void setIterations(int iters) { m_iter = iters; }
 
 private:
@@ -24,6 +25,11 @@ private:
     double m_maxReal;
     double m_minImag;
     double m_maxImag;
+
+    double m_zMinReal;
+    double m_zMaxReal;
+    double m_zMinImag;
+    double m_zMaxImag;
 
     double m_realFactor;
     double m_imagFactor;

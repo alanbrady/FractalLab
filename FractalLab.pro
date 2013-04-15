@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     fractalwidget.cpp \
     sierpinskifractal.cpp \
     triangle.cpp \
-    mandelbrotfractal.cpp
+    mandelbrotfractal.cpp \
+    abstractfractal.cpp
 
 HEADERS  += mainwindow.h \
     fractalwidget.h \

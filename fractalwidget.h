@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPixmap>
+#include <QRubberBand>
 #include "sierpinskifractal.h"
 #include "mandelbrotfractal.h"
 
@@ -20,13 +21,14 @@ private:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent * event);
     void resizeEvent(QResizeEvent *event);
-    void redrawFractal();
 
-    AbstractFractal* fractal;
-    QPoint mouseDown;
+    AbstractFractal* m_fractal;
+    QPoint m_mouseDown;
     QPixmap m_fractalMap;
-    
+    QRubberBand* m_rubberBand;
+    bool m_rightClicked;
 };
 
 #endif // FRACTALWIDGET_H

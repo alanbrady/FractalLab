@@ -8,8 +8,8 @@ class AbstractFractal
 {
 public:
     AbstractFractal(int ix, int iy, int width, int height)
-        : m_ix(ix), m_iy(iy), m_width(width), m_height(height) {
-        zoomRect = QRect(0, 0, width, height);
+        : m_ix(ix), m_iy(iy), m_width(width), m_height(height), m_redraw(false) {
+        m_zoomRect = QRect(0, 0, width, height);
     }
 
     virtual ~AbstractFractal() {}
@@ -21,11 +21,12 @@ public:
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
 
-    const QRect& getZoomRect() { return zoomRect; }
-    virtual void setZoomRect(QRect rect) { zoomRect = rect; }
+    const QRect& getZoomRect() { return m_zoomRect; }
+    virtual void setZoomRect(QRect rect) { m_zoomRect = rect; }
 
-    virtual void setWidth(int width) { m_width = width; }
-    virtual void setHeight(int height) { m_height = height; }
+    virtual void setWidth(int width);
+    virtual void setHeight(int height);
+    bool needsRedraw() { return m_redraw; }
 
     void setDimensions(int ix, int iy, int width, int height) {
         m_ix = ix;
@@ -39,7 +40,10 @@ private:
     int m_iy;
     int m_width;
     int m_height;
-    QRect zoomRect;
+    QRect m_zoomRect;
+
+protected:
+    bool m_redraw;
 
 };
 

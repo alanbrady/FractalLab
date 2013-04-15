@@ -13,6 +13,8 @@ class FractalWidget : public QWidget
 public:
     explicit FractalWidget(QWidget *parent = 0);
     
+    void setFractal(AbstractFractal* fractal) { m_fractal = fractal; update(); }
+
 signals:
     
 public slots:

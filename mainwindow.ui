@@ -13,7 +13,61 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="FractalWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 2px solid gray;
+border-radius: 8px;</string>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="FractalWidget" name="widget" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QComboBox" name="comboBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>Select a fractal...</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sierpinski Triangle</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Mandelbrot Set</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -35,5 +89,25 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fractalSelectionChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>617</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>146</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>fractalSelectionChanged(QString)</slot>
+ </slots>
 </ui>

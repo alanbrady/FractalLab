@@ -18,13 +18,16 @@ SOURCES += main.cpp\
     sierpinskifractal.cpp \
     triangle.cpp \
     mandelbrotfractal.cpp \
-    abstractfractal.cpp
+    abstractfractal.cpp \
+    sierpinskifractalwidget.cpp
 
 HEADERS  += mainwindow.h \
     fractalwidget.h \
     abstractfractal.h \
     sierpinskifractal.h \
     triangle.h \
-    mandelbrotfractal.h
+    mandelbrotfractal.h \
+    sierpinskifractalwidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    sierpinskifractalwidget.ui

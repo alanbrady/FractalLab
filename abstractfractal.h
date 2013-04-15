@@ -8,7 +8,7 @@ class AbstractFractal
 {
 public:
     AbstractFractal(int ix, int iy, int width, int height)
-        : m_ix(ix), m_iy(iy), m_width(width), m_height(height), m_redraw(false) {
+        : m_ix(ix), m_iy(iy), m_width(width), m_height(height), m_redraw(true) {
         m_zoomRect = QRect(0, 0, width, height);
     }
 

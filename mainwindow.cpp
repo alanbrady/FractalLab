@@ -12,3 +12,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::fractalSelectionChanged(const QString &fractalSelection)
+{
+}

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "sierpinskifractalwidget.h"
+#include "mandelbrotfractalwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,7 +22,8 @@ void MainWindow::fractalSelectionChanged(const QString &fractalSelection)
         delete m_fractalWidget;
     if (fractalSelection == "Sierpinski Triangle") {
         m_fractalWidget = new SierpinskiFractalWidget();
-
+    } else if (fractalSelection == "Mandelbrot Set") {
+        m_fractalWidget = new MandelbrotFractalWidget();
     }
     ui->fractalWidgetLayout->addWidget(m_fractalWidget);
     ui->fractalDisplayWidget->setFractal(m_fractalWidget->getFractal());

@@ -15,7 +15,7 @@ public:
                       int width, int height);
 
     void drawMe(QPainter *painter);
-    void setIterations(int iter) { m_iter = iter; }
+    void setIterations(int iter) { m_iter = iter; m_redraw = true;}
 
 private:
     int m_iter;

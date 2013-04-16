@@ -9,6 +9,8 @@ public:
     MandelbrotFractal(double minReal, double maxReal, double minImag, double maxImag,
                       int iter, int ix, int iy, int width, int height);
 
+    MandelbrotFractal();
+
     void drawMe(QPainter *painter);
 
     void setMinReal(double minReal);
@@ -19,8 +21,10 @@ public:
     void setHeight(int height);
     void setZoomRect(QRect rect);
     void setIterations(int iters) { m_iter = iters; }
+    void resetZoom();
 
 private:
+
     double m_minReal;
     double m_maxReal;
     double m_minImag;

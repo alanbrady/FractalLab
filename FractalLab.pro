@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     abstractfractal.cpp \
     sierpinskifractalwidget.cpp \
     fractaldisplaywidget.cpp \
-    abstractfractalwidget.cpp
+    abstractfractalwidget.cpp \
+    mandelbrotfractalwidget.cpp
 
 HEADERS  += mainwindow.h \
     abstractfractal.h \
@@ -29,7 +30,9 @@ HEADERS  += mainwindow.h \
     mandelbrotfractal.h \
     sierpinskifractalwidget.h \
     fractaldisplaywidget.h \
-    abstractfractalwidget.h
+    abstractfractalwidget.h \
+    mandelbrotfractalwidget.h
 
 FORMS    += mainwindow.ui \
-    sierpinskifractalwidget.ui
+    sierpinskifractalwidget.ui \
+    mandelbrotfractalwidget.ui

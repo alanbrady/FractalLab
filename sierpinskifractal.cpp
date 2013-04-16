@@ -14,6 +14,7 @@ void SierpinskiFractal::drawMe(QPainter *painter) {
         painter->setBrush(QBrush(color));
         painter->drawPolygon(triangles.at(i).getPolygonF());
     }
+    m_redraw = false;
 }
 
 QList<Triangle> SierpinskiFractal::makeEquilateralTriangles() {

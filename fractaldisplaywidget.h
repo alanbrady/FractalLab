@@ -7,13 +7,13 @@
 #include "sierpinskifractal.h"
 #include "mandelbrotfractal.h"
 
-class FractalWidget : public QWidget
+class FractalDisplayWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit FractalWidget(QWidget *parent = 0);
+    explicit FractalDisplayWidget(QWidget *parent = 0);
     
-    void setFractal(AbstractFractal* fractal) { m_fractal = fractal; update(); }
+    void setFractal(AbstractFractal* fractal);
 
 signals:
     

@@ -14,20 +14,22 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    fractalwidget.cpp \
     sierpinskifractal.cpp \
     triangle.cpp \
     mandelbrotfractal.cpp \
     abstractfractal.cpp \
-    sierpinskifractalwidget.cpp
+    sierpinskifractalwidget.cpp \
+    fractaldisplaywidget.cpp \
+    abstractfractalwidget.cpp
 
 HEADERS  += mainwindow.h \
-    fractalwidget.h \
     abstractfractal.h \
     sierpinskifractal.h \
     triangle.h \
     mandelbrotfractal.h \
-    sierpinskifractalwidget.h
+    sierpinskifractalwidget.h \
+    fractaldisplaywidget.h \
+    abstractfractalwidget.h
 
 FORMS    += mainwindow.ui \
     sierpinskifractalwidget.ui

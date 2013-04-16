@@ -1,8 +1,8 @@
-#include "fractalwidget.h"
+#include "fractaldisplaywidget.h"
 
 #include <QMouseEvent>
 
-FractalWidget::FractalWidget(QWidget *parent) :
+FractalDisplayWidget::FractalDisplayWidget(QWidget *parent) :
     QWidget(parent), m_fractalMap(width(), height())
 {
     m_rubberBand = 0;
@@ -13,7 +13,16 @@ FractalWidget::FractalWidget(QWidget *parent) :
     setMouseTracking(true);
 }
 
-void FractalWidget::paintEvent(QPaintEvent *) {
+void FractalDisplayWidget::setFractal(AbstractFractal *fractal)
+{
+    m_fractal = fractal;
+    m_fractal->setHeight(height());
+    m_fractal->setWidth(width());
+    update();
+
+}
+
+void FractalDisplayWidget::paintEvent(QPaintEvent *) {
     if (m_fractal->needsRedraw()) {
         m_fractalMap = QPixmap(size());
         QPainter p1(&m_fractalMap);
@@ -23,7 +32,7 @@ void FractalWidget::paintEvent(QPaintEvent *) {
     p2.drawPixmap(QPoint(), m_fractalMap);
 }
 
-void FractalWidget::mousePressEvent(QMouseEvent *event)
+void FractalDisplayWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::RightButton) return;
     m_rightClicked = false;
@@ -34,13 +43,13 @@ void FractalWidget::mousePressEvent(QMouseEvent *event)
     m_rubberBand->show();
 }
 
-void FractalWidget::mouseMoveEvent(QMouseEvent *event)
+void FractalDisplayWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_rubberBand)
         m_rubberBand->setGeometry(QRect(m_mouseDown, event->pos()).normalized());
 }
 
-void FractalWidget::mouseReleaseEvent(QMouseEvent *event)
+void FractalDisplayWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::RightButton) {
         m_rightClicked = true;
@@ -54,7 +63,7 @@ void FractalWidget::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void FractalWidget::resizeEvent(QResizeEvent *event)
+void FractalDisplayWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
     m_fractalMap.scaled(width(), height());

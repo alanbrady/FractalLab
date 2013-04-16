@@ -3,23 +3,27 @@
 
 #include <QWidget>
 #include "sierpinskifractal.h"
+#include "abstractfractalwidget.h"
 
 namespace Ui {
 class SierpinskiFractalWidget;
 }
 
-class SierpinskiFractalWidget : public QWidget
+class SierpinskiFractalWidget : public AbstractFractalWidget
 {
     Q_OBJECT
 public:
     explicit SierpinskiFractalWidget(QWidget *parent = 0);
     ~SierpinskiFractalWidget();
 
-    AbstractFractal* getFractal() { return &fractal; }
+    AbstractFractal* getFractal() { return &m_fractal; }
     
+public slots:
+    void generate();
+
 private:
     Ui::SierpinskiFractalWidget *ui;
-    SierpinskiFractal fractal;
+    SierpinskiFractal m_fractal;
 };
 
 #endif // SIERPINSKIFRACTALWIDGET_H

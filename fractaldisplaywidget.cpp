@@ -1,15 +1,15 @@
 #include "fractaldisplaywidget.h"
-
+#include <QFile>
 #include <QMouseEvent>
 
 FractalDisplayWidget::FractalDisplayWidget(QWidget *parent) :
-    QWidget(parent), m_fractalMap(width(), height())
+    QWidget(parent),  m_fractal(0), m_fractalMap(width(), height())
 {
     m_rubberBand = 0;
     m_rightClicked = false;
 //    fractal = new SierpinskiFractal(6, 0, 0, width(), height());
-    m_fractal = new MandelbrotFractal(-2.2, 1.2, -1.5, 1.5, 100, 0, 0,
-                                    width(), height());
+//    m_fractal = new MandelbrotFractal(-2.2, 1.2, -1.5, 1.5, 100, 0, 0,
+//                                    width(), height());
     setMouseTracking(true);
 }
 
@@ -22,7 +22,16 @@ void FractalDisplayWidget::setFractal(AbstractFractal *fractal)
 
 }
 
+void FractalDisplayWidget::saveImage()
+{
+    QFile file("fractalimage.png");
+    file.open(QIODevice::WriteOnly);
+    m_fractalMap.save(&file);
+}
+
 void FractalDisplayWidget::paintEvent(QPaintEvent *) {
+    if (m_fractal == 0) return;
+
     if (m_fractal->needsRedraw()) {
         m_fractalMap = QPixmap(size());
         QPainter p1(&m_fractalMap);
@@ -58,6 +67,7 @@ void FractalDisplayWidget::mouseReleaseEvent(QMouseEvent *event)
     }
     if (!m_rightClicked) {
         m_rubberBand->hide();
+        if (m_fractal == 0) return;
         m_fractal->setZoomRect(QRect(m_mouseDown, event->pos()).normalized());
         update();
     }
@@ -66,7 +76,8 @@ void FractalDisplayWidget::mouseReleaseEvent(QMouseEvent *event)
 void FractalDisplayWidget::resizeEvent(QResizeEvent *event)
 {
     QWidget::resizeEvent(event);
-    m_fractalMap.scaled(width(), height());
+//    m_fractalMap.scaled(width(), height());
+    if (m_fractal == 0) return;
     m_fractal->setWidth(width());
     m_fractal->setHeight(height());
 }

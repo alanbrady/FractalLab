@@ -9,7 +9,7 @@ class AbstractFractalWidget : public QWidget
     Q_OBJECT
 public:
     explicit AbstractFractalWidget(QWidget *parent = 0);
-    ~AbstractFractalWidget() {}
+    virtual ~AbstractFractalWidget() {}
 
     virtual AbstractFractal* getFractal() = 0;
 
@@ -17,7 +17,7 @@ signals:
     void needsRedraw();
     
 public slots:
-    
+
 };
 
 #endif // ABSTRACTFRACTALWIDGET_H

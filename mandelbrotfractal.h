@@ -11,7 +11,15 @@ public:
 
     MandelbrotFractal();
 
-    void drawMe(QPainter *painter);
+    virtual void drawMe(QPainter *painter);
+
+    double getMinReal() const { return m_minReal; }
+    double getMaxReal() const { return m_maxReal; }
+    double getMinImag() const { return m_minImag; }
+    double getMaxImag() const { return m_maxImag; }
+    double getRealFactor () const { return m_realFactor; }
+    double getImagFactor() const { return m_imagFactor; }
+    double getIterations() const { return m_iter; }
 
     void setMinReal(double minReal);
     void setMaxReal(double maxReal);
@@ -20,7 +28,7 @@ public:
     void setWidth(int width);
     void setHeight(int height);
     void setZoomRect(QRect rect);
-    void setIterations(int iters) { m_iter = iters; }
+    void setIterations(int iters) { m_iter = iters; m_redraw = true; }
     void resetZoom();
 
 private:
@@ -30,10 +38,10 @@ private:
     double m_minImag;
     double m_maxImag;
 
-    double m_zMinReal;
-    double m_zMaxReal;
-    double m_zMinImag;
-    double m_zMaxImag;
+//    double m_zMinReal;
+//    double m_zMaxReal;
+//    double m_zMinImag;
+//    double m_zMaxImag;
 
     double m_realFactor;
     double m_imagFactor;

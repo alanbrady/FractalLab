@@ -18,6 +18,7 @@ public:
 signals:
     
 public slots:
+    void saveImage();
 
 private:
     void paintEvent(QPaintEvent *);

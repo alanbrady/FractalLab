@@ -69,6 +69,18 @@ border-radius: 8px;</string>
           <string>Mandelbrot Set</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>Julia Set</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveButton">
+        <property name="text">
+         <string>Save</string>
+        </property>
        </widget>
       </item>
       <item>

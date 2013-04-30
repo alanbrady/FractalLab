@@ -1,14 +1,17 @@
 #ifndef ABSTRACTFRACTAL_H
 #define ABSTRACTFRACTAL_H
 
+#include <QWidget>
 #include <QPainter>
 #include <QRect>
 
-class AbstractFractal
+class AbstractFractal : public QWidget
 {
+    Q_OBJECT
 public:
-    AbstractFractal(int ix, int iy, int width, int height)
-        : m_ix(ix), m_iy(iy), m_width(width), m_height(height), m_redraw(true) {
+    AbstractFractal(int ix, int iy, int width, int height, QWidget* parent = 0)
+        : QWidget(parent), m_ix(ix), m_iy(iy),
+          m_width(width), m_height(height), m_redraw(true) {
         m_zoomRect = QRect(0, 0, width, height);
     }
 
@@ -34,6 +37,9 @@ public:
         m_width = width;
         m_height = height;
     }
+
+signals:
+    void zoomed();
 
 private:
     int m_ix;

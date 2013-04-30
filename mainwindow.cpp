@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "sierpinskifractalwidget.h"
 #include "mandelbrotfractalwidget.h"
+#include "juliafractalwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_fractalWidget(0)
 {
     ui->setupUi(this);
+
+    connect(ui->saveButton, SIGNAL(clicked()),
+            ui->fractalDisplayWidget, SLOT(saveImage()));
 }
 
 MainWindow::~MainWindow()
@@ -24,6 +28,8 @@ void MainWindow::fractalSelectionChanged(const QString &fractalSelection)
         m_fractalWidget = new SierpinskiFractalWidget();
     } else if (fractalSelection == "Mandelbrot Set") {
         m_fractalWidget = new MandelbrotFractalWidget();
+    } else if (fractalSelection == "Julia Set") {
+        m_fractalWidget = new JuliaFractalWidget();
     }
     ui->fractalWidgetLayout->addWidget(m_fractalWidget);
     ui->fractalDisplayWidget->setFractal(m_fractalWidget->getFractal());

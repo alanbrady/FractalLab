@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     sierpinskifractalwidget.cpp \
     fractaldisplaywidget.cpp \
     abstractfractalwidget.cpp \
-    mandelbrotfractalwidget.cpp
+    mandelbrotfractalwidget.cpp \
+    juliafractal.cpp \
+    juliafractalwidget.cpp
 
 HEADERS  += mainwindow.h \
     abstractfractal.h \
@@ -31,8 +33,11 @@ HEADERS  += mainwindow.h \
     sierpinskifractalwidget.h \
     fractaldisplaywidget.h \
     abstractfractalwidget.h \
-    mandelbrotfractalwidget.h
+    mandelbrotfractalwidget.h \
+    juliafractal.h \
+    juliafractalwidget.h
 
 FORMS    += mainwindow.ui \
     sierpinskifractalwidget.ui \
-    mandelbrotfractalwidget.ui
+    mandelbrotfractalwidget.ui \
+    juliafractalwidget.ui

@@ -22,6 +22,7 @@ public:
 public slots:
     void generate();
     void resetFractalZoom();
+    void zoomed();
 
 private:
     Ui::MandelbrotFractalWidget *ui;
